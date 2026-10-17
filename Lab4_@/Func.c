@@ -1,5 +1,6 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 #include "Func.h"
+
 // 1. Пошук MAX та MIN вище головної діагоналі (Варіант 21)
 void max_min(int** A, int n_a, int* max_a, int* min_a) {
     int first = 1;
@@ -122,6 +123,60 @@ void print_sums(int** A, int n_a, int** B, int n_b, int m_b) {
             col_sum += B[i][j];
         }
         printf("Стовпець %d: %d\n", j, col_sum);
+    }
+}
+
+int** allocate_matrix(int rows, int cols) {
+    int** matrix = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) {
+        matrix[i] = (int*)malloc(cols * sizeof(int));
+    }
+    return matrix;
+}
+
+
+void free_matrix(int** matrix, int rows) {
+    if (matrix == NULL) return;
+    for (int i = 0; i < rows; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+
+void print_matrix(int** matrix, int rows, int cols, const char* name) {
+    printf("\n--- Матриця %s (%dx%d) ---\n", name, rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%6d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void fill_matrix(int** matrix, int rows, int cols, const char* name) {
+    int mode;
+    printf("\nОберіть спосіб заповнення матриці %s:\n", name);
+    printf("1. Випадковими числами\n");
+    printf("2. Ручне введення\n");
+    printf("Ваш вибір: ");
+    scanf("%d", &mode);
+
+    if (mode == 2) {
+        printf("Введіть елементи матриці %s (%dx%d):\n", name, rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                printf("%s[%d][%d] = ", name, i, j);
+                scanf("%d", &matrix[i][j]);
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = rand() % 100 - 50; // Випадкові числа від -50 до 49
+            }
+        }
+        printf("Матрицю %s заповнено випадковими числами.\n", name);
     }
 }
 

@@ -1,10 +1,18 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "Func.h"
+#include <windows.h>
+#include <locale.h>
 
 
 int main(void) {
+    //Локалізація
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    setlocale(LC_ALL, "uk_UA.UTF-8");
+
     srand((unsigned int)time(NULL));
 
     int n_a = 21; // За замовчуванням для варіанту 21
